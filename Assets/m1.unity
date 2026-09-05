@@ -236,6 +236,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1274708373}
+    - targetCorrespondingSourceObject: {fileID: 3463703598496649971, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1558662224}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3100963020756829195, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
@@ -487,6 +491,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -44
       objectReference: {fileID: 0}
+    - target: {fileID: 1097989451772220874, guid: ee7d5a312fa704c34ad4557c2aa4a0c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1242652388118854643, guid: ee7d5a312fa704c34ad4557c2aa4a0c6,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -686,6 +695,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1817178741
+      objectReference: {fileID: 0}
+    - target: {fileID: 5244389958559391193, guid: ee7d5a312fa704c34ad4557c2aa4a0c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5487992354704633608, guid: ee7d5a312fa704c34ad4557c2aa4a0c6,
         type: 3}
@@ -1125,6 +1139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Basketball_target_area
   basketballManager: {fileID: 1103716671}
+  m_SwishCollider: {fileID: 0}
+  m_PowerShotVelocityThreshold: 6
 --- !u!65 &310124244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1236,6 +1252,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1771023486}
+    - targetCorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1165417551}
+    - targetCorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1165417550}
   m_SourcePrefab: {fileID: 100100000, guid: c44cf8c1b72d04177bc7bed7556f2085, type: 3}
 --- !u!4 &369728750 stripped
 Transform:
@@ -1262,6 +1286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Basketball_target_area
   basketballManager: {fileID: 1103716671}
+  m_SwishCollider: {fileID: 0}
+  m_PowerShotVelocityThreshold: 6
 --- !u!65 &438869328
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1302,6 +1328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Basketball_target_area
   basketballManager: {fileID: 1103716671}
+  m_SwishCollider: {fileID: 0}
+  m_PowerShotVelocityThreshold: 6
 --- !u!65 &454475944
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2169,6 +2197,42 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 723388857}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &755571026 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+    type: 3}
+  m_PrefabInstance: {fileID: 1437298823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &755571030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755571026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0440dad6047254022a56823d410c74db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Basketball_RimTrigger
+--- !u!1 &765726418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+    type: 3}
+  m_PrefabInstance: {fileID: 1454916323}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &765726422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765726418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0440dad6047254022a56823d410c74db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Basketball_RimTrigger
 --- !u!4 &818388790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8383550645295993588, guid: 77ac6b10722bcca4a8baf70e44d89e78,
@@ -2251,6 +2315,11 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0885688965cf44072ae1b8452b015f0e,
         type: 3}
       propertyPath: m_Name
+      value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0885688965cf44072ae1b8452b015f0e,
+        type: 3}
+      propertyPath: m_TagString
       value: Ball
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2412,7 +2481,7 @@ MonoBehaviour:
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
-  Ownership: 1
+  Ownership: 3
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   m_InScenePlaced: 1
@@ -2420,7 +2489,7 @@ MonoBehaviour:
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
+  AutoObjectParentSync: 0
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
 --- !u!114 &833261800
@@ -2715,6 +2784,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0885688965cf44072ae1b8452b015f0e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2874,7 +2948,7 @@ MonoBehaviour:
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
-  Ownership: 1
+  Ownership: 3
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   m_InScenePlaced: 1
@@ -2882,7 +2956,7 @@ MonoBehaviour:
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
+  AutoObjectParentSync: 0
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
 --- !u!114 &846135348
@@ -3099,6 +3173,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6082c9e14ab9a455c98cb029c3044b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+--- !u!1 &950266255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+    type: 3}
+  m_PrefabInstance: {fileID: 1247996313}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &950266259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950266255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0440dad6047254022a56823d410c74db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Basketball_RimTrigger
 --- !u!1 &1103716670 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3100963020756829195, guid: e7a58ef30a96fb845b50778e16448078,
@@ -3125,6 +3217,44 @@ MonoBehaviour:
   - {fileID: 833261800}
   - {fileID: 1555542315}
   - {fileID: 846135348}
+  m_ComboWindow: 4
+  m_ComboMultiplierStep: 0.5
+  m_MaxComboMultiplier: 3
+  m_HitParticles: {fileID: 0}
+  m_AudioSource: {fileID: 1558662223}
+  m_NormalHitClip: {fileID: 8300000, guid: c327a193ef30d4491be7e6c44a8ee848, type: 3}
+  m_SwishClip: {fileID: 8300000, guid: f7aa986b693e14bdfbdfcc59a126ab9f, type: 3}
+  m_ComboClip: {fileID: 8300000, guid: 7b9008401613c494491e0a0ce7363f6b, type: 3}
+--- !u!1 &1165417546 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+    type: 3}
+  m_PrefabInstance: {fileID: 369728749}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1165417550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165417546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0440dad6047254022a56823d410c74db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Basketball_RimTrigger
+--- !u!114 &1165417551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165417546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0440dad6047254022a56823d410c74db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &1241780349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3283,6 +3413,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 438869327}
+    - targetCorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 950266259}
   m_SourcePrefab: {fileID: 100100000, guid: c44cf8c1b72d04177bc7bed7556f2085, type: 3}
 --- !u!4 &1247996314 stripped
 Transform:
@@ -3537,6 +3671,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 454475943}
+    - targetCorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 755571030}
   m_SourcePrefab: {fileID: 100100000, guid: c44cf8c1b72d04177bc7bed7556f2085, type: 3}
 --- !u!4 &1437298824 stripped
 Transform:
@@ -3634,6 +3772,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 310124243}
+    - targetCorrespondingSourceObject: {fileID: 177474799226855764, guid: c44cf8c1b72d04177bc7bed7556f2085,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 765726422}
   m_SourcePrefab: {fileID: 100100000, guid: c44cf8c1b72d04177bc7bed7556f2085, type: 3}
 --- !u!4 &1454916324 stripped
 Transform:
@@ -3717,6 +3859,11 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0885688965cf44072ae1b8452b015f0e,
         type: 3}
       propertyPath: m_Name
+      value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0885688965cf44072ae1b8452b015f0e,
+        type: 3}
+      propertyPath: m_TagString
       value: Ball
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3878,7 +4025,7 @@ MonoBehaviour:
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
-  Ownership: 1
+  Ownership: 3
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   m_InScenePlaced: 1
@@ -3886,7 +4033,7 @@ MonoBehaviour:
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
+  AutoObjectParentSync: 0
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
 --- !u!114 &1555542315
@@ -4103,6 +4250,135 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6082c9e14ab9a455c98cb029c3044b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+--- !u!1 &1558662222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1558662224}
+  - component: {fileID: 1558662223}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1558662223
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558662222}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1558662224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558662222}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 25520342}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1598127442
 GameObject:
   m_ObjectHideFlags: 0
@@ -4742,6 +5018,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0885688965cf44072ae1b8452b015f0e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4797,7 +5078,7 @@ MonoBehaviour:
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
-  Ownership: 1
+  Ownership: 3
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   m_InScenePlaced: 1
@@ -4805,7 +5086,7 @@ MonoBehaviour:
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
+  AutoObjectParentSync: 0
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
 --- !u!114 &1651184125
@@ -5252,6 +5533,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Basketball_target_area
   basketballManager: {fileID: 1103716671}
+  m_SwishCollider: {fileID: 0}
+  m_PowerShotVelocityThreshold: 6
 --- !u!65 &1771023487
 BoxCollider:
   m_ObjectHideFlags: 0
