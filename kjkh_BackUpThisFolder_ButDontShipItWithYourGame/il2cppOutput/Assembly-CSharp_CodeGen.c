@@ -1,0 +1,93 @@
+﻿#include "pch-c.h"
+
+
+#include "codegen/il2cpp-codegen-metadata.h"
+
+
+
+
+
+extern void Basketball_Controller_Awake_m4880FED18D3A7220625149795D62299DDE173472 (void);
+extern void Basketball_Controller_DelayMove_m5EE8732682727332E0CE039273995B91F1C94550 (void);
+extern void Basketball_Controller_MoveBall_m13871629EB5C6381696A2626588811CC2A626180 (void);
+extern void Basketball_Controller__ctor_m7C7D0FB03774BC497663E3A9A1559B8650E2FF6C (void);
+extern void Basketball_RimTrigger_Start_m77DE6535703BD0EEBBB0D8784944F76DF23FEB14 (void);
+extern void Basketball_RimTrigger_Update_m37AEBB40EB8669E2914B59C6131F5C48368AC0D3 (void);
+extern void Basketball_RimTrigger__ctor_m93D404DB5B39F30FEB5D902629CA643B18A518F8 (void);
+extern void Basketball_target_area_OnTriggerEnter_m2D173C8CCBF13D1CE764976BFB13473B221724C5 (void);
+extern void Basketball_target_area__ctor_mD4D1912C1DE8B8829C9599D891F695668DB51AE5 (void);
+extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
+extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
+extern void Minigame_Basketball_StartGame_mAC24C7831AAE6A205D53224FEE6157B453BE094A (void);
+extern void Minigame_Basketball_FinishGame_mDD208590F4ED2DBFF9C03C8A474C01003191150E (void);
+extern void Minigame_Basketball_localPlayerHitTarget_mDDABD19D54E6A42E9B73FE8713BA2782B57BEF66 (void);
+extern void Minigame_Basketball_BroadcastStreakRpc_mD7998DC4F95BB63106136BB4DCB3CE87569D4E9A (void);
+extern void Minigame_Basketball_PlayHitFeedback_mD98AB083A993C85817B28532B538F5EFDE650EE4 (void);
+extern void Minigame_Basketball_TriggerHaptics_mD6CA554BFE6EA7FBA00569CC334C1CFDBD188541 (void);
+extern void Minigame_Basketball__ctor_m88C037E70F6C2C53E08969C6F346E359EC1D85B2 (void);
+extern void NetworkVariableSerializationHelper_InitializeSerialization_mA4F17C9D8F4934C552263003358AF8CC0E55E6E3 (void);
+static Il2CppMethodPointer s_methodPointers[19] = 
+{
+	Basketball_Controller_Awake_m4880FED18D3A7220625149795D62299DDE173472,
+	Basketball_Controller_DelayMove_m5EE8732682727332E0CE039273995B91F1C94550,
+	Basketball_Controller_MoveBall_m13871629EB5C6381696A2626588811CC2A626180,
+	Basketball_Controller__ctor_m7C7D0FB03774BC497663E3A9A1559B8650E2FF6C,
+	Basketball_RimTrigger_Start_m77DE6535703BD0EEBBB0D8784944F76DF23FEB14,
+	Basketball_RimTrigger_Update_m37AEBB40EB8669E2914B59C6131F5C48368AC0D3,
+	Basketball_RimTrigger__ctor_m93D404DB5B39F30FEB5D902629CA643B18A518F8,
+	Basketball_target_area_OnTriggerEnter_m2D173C8CCBF13D1CE764976BFB13473B221724C5,
+	Basketball_target_area__ctor_mD4D1912C1DE8B8829C9599D891F695668DB51AE5,
+	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
+	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
+	Minigame_Basketball_StartGame_mAC24C7831AAE6A205D53224FEE6157B453BE094A,
+	Minigame_Basketball_FinishGame_mDD208590F4ED2DBFF9C03C8A474C01003191150E,
+	Minigame_Basketball_localPlayerHitTarget_mDDABD19D54E6A42E9B73FE8713BA2782B57BEF66,
+	Minigame_Basketball_BroadcastStreakRpc_mD7998DC4F95BB63106136BB4DCB3CE87569D4E9A,
+	Minigame_Basketball_PlayHitFeedback_mD98AB083A993C85817B28532B538F5EFDE650EE4,
+	Minigame_Basketball_TriggerHaptics_mD6CA554BFE6EA7FBA00569CC334C1CFDBD188541,
+	Minigame_Basketball__ctor_m88C037E70F6C2C53E08969C6F346E359EC1D85B2,
+	NetworkVariableSerializationHelper_InitializeSerialization_mA4F17C9D8F4934C552263003358AF8CC0E55E6E3,
+};
+static const int32_t s_InvokerIndices[19] = 
+{
+	16519,
+	16519,
+	16519,
+	16519,
+	16519,
+	16519,
+	16519,
+	12278,
+	16519,
+	24295,
+	16519,
+	16519,
+	12344,
+	3682,
+	5574,
+	3589,
+	7101,
+	16519,
+	24234,
+};
+IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
+const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
+{
+	"Assembly-CSharp.dll",
+	19,
+	s_methodPointers,
+	0,
+	NULL,
+	s_InvokerIndices,
+	0,
+	NULL,
+	0,
+	NULL,
+	0,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+};
