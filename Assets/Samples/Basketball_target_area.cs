@@ -9,19 +9,18 @@ public class Basketball_target_area : MonoBehaviour
     [Header("Shot Quality")]
     [SerializeField] Collider m_SwishCollider;
     [SerializeField] float m_PowerShotVelocityThreshold = 6f;
-    [SerializeField] float m_MinReleaseSpeed = 1.5f; 
+    [SerializeField] float m_MinReleaseSpeed = 1.5f;
 
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Trigger entered by: {other.name}, tag: {other.tag}");
         if (!other.CompareTag("Ball")) return;
 
-        
         if (other.TryGetComponent<XRBaseInteractable>(out var interactable) && interactable.isSelected)
         {
             return;
         }
 
-        
         float speed = other.attachedRigidbody != null ? other.attachedRigidbody.linearVelocity.magnitude : 0f;
         if (speed < m_MinReleaseSpeed)
         {
@@ -35,6 +34,13 @@ public class Basketball_target_area : MonoBehaviour
         int bonus = 0;
         if (isSwish) bonus += 5;
         if (isPowerShot) bonus += 10;
+
+        // 👇 única línea nueva
+        if (other.TryGetComponent<BallShotState>(out var shotState))
+        {
+            shotState.hasScored = true;
+            Debug.Log("Gol marcado, hasScored = true");
+        }
 
         basketballManager.localPlayerHitTarget(basePoints + bonus, isSwish, isPowerShot);
     }

@@ -71,6 +71,18 @@ namespace XRMultiplayer.MiniGames
         [SerializeField] int m_PostGameCountdownTimeInSeconds = 7;
         [SerializeField] GameObject m_TeleportZonesObject;
         [SerializeField] SubTrigger[] m_StartZoneTrigger;
+        [Header("Audio")]
+        [SerializeField] AudioSource m_GameMusicSource;
+        [SerializeField] AudioClip m_GameMusicClip;
+
+        [SerializeField] AudioSource m_WinnerAudioSource;
+        [SerializeField] AudioClip m_WinnerAudioClip;
+
+        [SerializeField] float m_WinnerAudioDelay = 0.5f;
+        [Header("Winner Celebration")]
+        [SerializeField] GameObject m_WinnerCelebration;
+        [SerializeField] ParticleSystem m_WinnerConfetti;
+        [SerializeField] TMPro.TextMeshProUGUI m_WinnerText;
 
         [Header("Transform References")]
         [SerializeField] Transform m_ScoreboardTransform;
@@ -95,12 +107,15 @@ namespace XRMultiplayer.MiniGames
         NetworkList<ulong> m_CurrentPlayers;
         NetworkList<ulong> m_QueuedUpPlayers;
         readonly NetworkVariable<float> m_BestAllScore = new(0.0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        readonly NetworkVariable<ulong> m_LastRoundWinnerId = new(ulong.MaxValue, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        [Header("Level Progression")]
+        [SerializeField] MiniGameManager m_NextLevelManager;
         TeleportationProvider m_LocalPlayerTeleportProvider;
 
         float m_CurrentTimer = 0.0f;
         Pose m_ScoreboardStartPose;
         IEnumerator m_StartGameRoutine;
-        IEnumerator m_PostGameRoutine;
+        Coroutine m_PostGameRoutine;
 
         /// <inheritdoc/>
         void Start()
@@ -294,11 +309,21 @@ namespace XRMultiplayer.MiniGames
             m_DynamicButton.UpdateButton(AddLocalPlayer, "Join");
             StartCoroutine(ResetReadyZones());
         }
+        void PlayGameMusic()
+        {
+            if (m_GameMusicSource == null || m_GameMusicClip == null)
+                return;
+
+            m_GameMusicSource.clip = m_GameMusicClip;
+            m_GameMusicSource.loop = true;
+            m_GameMusicSource.Play();
+        }
 
         void SetInGameState()
         {
             m_CurrentTimer = 0.0f;
             ResetContestants(true);
+            PlayGameMusic();
 
             foreach (var slot in currentPlayerDictionary.Values)
             {
@@ -334,52 +359,255 @@ namespace XRMultiplayer.MiniGames
 
             currentMiniGame.StartGame();
         }
+        void StopGameMusic()
+        {
+            if (m_GameMusicSource != null)
+            {
+                m_GameMusicSource.Stop();
+            }
+        }
+        void ShowWinnerCelebration()
+        {
+            Debug.Log("🎉 ===== MOSTRANDO CELEBRACIÓN =====");
+
+            if (m_WinnerCelebration != null)
+            {
+                Debug.Log(
+                    $"WinnerCelebration: {m_WinnerCelebration.name} | " +
+                    $"activeSelf={m_WinnerCelebration.activeSelf} | " +
+                    $"activeInHierarchy={m_WinnerCelebration.activeInHierarchy} | " +
+                    $"position={m_WinnerCelebration.transform.position}"
+                );
+
+                m_WinnerCelebration.SetActive(true);
+
+                Debug.Log(
+                    $"Después de SetActive: " +
+                    $"activeSelf={m_WinnerCelebration.activeSelf} | " +
+                    $"activeInHierarchy={m_WinnerCelebration.activeInHierarchy}"
+                );
+            }
+            else
+            {
+                Debug.LogError("❌ m_WinnerCelebration ES NULL");
+            }
+
+            if (m_WinnerText != null)
+            {
+                Debug.Log(
+                    $"WinnerText: {m_WinnerText.name} | " +
+                    $"activeSelf={m_WinnerText.gameObject.activeSelf}"
+                );
+
+                m_WinnerText.text = "¡FELICIDADES POR GANAR!";
+                m_WinnerText.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("❌ m_WinnerText ES NULL");
+            }
+
+            if (m_WinnerConfetti != null)
+            {
+                Debug.Log(
+                    $"Confetti: {m_WinnerConfetti.name} | " +
+                    $"activeSelf={m_WinnerConfetti.gameObject.activeSelf}"
+                );
+
+                m_WinnerConfetti.gameObject.SetActive(true);
+                m_WinnerConfetti.Play();
+            }
+            else
+            {
+                Debug.LogError("❌ m_WinnerConfetti ES NULL");
+            }
+        }
+        void HideWinnerCelebration()
+        {
+            if (m_WinnerConfetti != null)
+                m_WinnerConfetti.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+            if (m_WinnerCelebration != null)
+                m_WinnerCelebration.SetActive(false);
+
+            if (m_WinnerText != null)
+                m_WinnerText.gameObject.SetActive(false);
+        }
+        IEnumerator PlayFinalWinnerAudio()
+        {
+            // Si existe un siguiente nivel, no mostrar celebración final.
+            if (m_NextLevelManager != null)
+            {
+                Debug.Log("➡️ No es nivel final. No hay celebración.");
+                yield break;
+            }
+
+            if (m_WinnerAudioSource == null || m_WinnerAudioClip == null)
+            {
+                Debug.LogError("❌ Winner Audio Source o Winner Audio Clip NO están asignados.");
+                yield break;
+            }
+
+            Debug.Log("🏆 CELEBRACIÓN FINAL: empezando");
+
+            // Pequeña espera opcional antes de comenzar todo.
+            yield return new WaitForSeconds(m_WinnerAudioDelay);
+
+            ulong localPlayerId =
+                XRINetworkPlayer.LocalPlayer.OwnerClientId;
+
+            Debug.Log(
+                $"🏆 Winner ID = {m_LastRoundWinnerId.Value} | " +
+                $"Local ID = {localPlayerId}"
+            );
+
+            // Solo el ganador ve la celebración.
+            if (m_LastRoundWinnerId.Value != localPlayerId)
+            {
+                Debug.Log("❌ Este jugador NO es el ganador.");
+                yield break;
+            }
+
+            // ==========================================
+            // CELEBRACIÓN + TEXTO + CONFETTI + AUDIO
+            // ==========================================
+
+            Debug.Log("🎉 ACTIVANDO WINNER CELEBRATION");
+
+            // Primero hacemos visible TODO.
+            ShowWinnerCelebration();
+
+            // Inmediatamente después empieza el audio.
+            Debug.Log(
+                $"🔊 REPRODUCIENDO AUDIO. Duración = {m_WinnerAudioClip.length} segundos"
+            );
+
+            m_WinnerAudioSource.PlayOneShot(m_WinnerAudioClip);
+
+            // Esperamos a que termine el audio.
+            yield return new WaitForSeconds(m_WinnerAudioClip.length);
+
+            Debug.Log("🔊 AUDIO TERMINÓ");
+
+            // Dejamos la celebración visible un segundo extra.
+            yield return new WaitForSeconds(1f);
+
+            Debug.Log("🎉 OCULTANDO WINNER CELEBRATION");
+
+            HideWinnerCelebration();
+
+            Debug.Log("🏁 CELEBRACIÓN FINAL TERMINADA");
+        }
+        
 
         void SetPostGameState()
         {
+            StopGameMusic();
+
             if (LocalPlayerInGame)
             {
                 ToggleShrink(false);
-                TeleportToArea(m_LeaveTeleportTransform);
                 m_BarrierRend.gameObject.SetActive(true);
-                m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
             }
 
             m_LocalPlayerInGame = false;
             m_TeleportZonesObject.SetActive(false);
+
             SortPlayers();
-            m_GameStateText.text = "Post Game";
-            m_DynamicButton.UpdateButton(ResetGame, $"Wait", true, false);
+
+            currentMiniGame.FinishGame(false);
+
             if (!currentMiniGame.finished)
             {
                 currentMiniGame.FinishGame(false);
             }
 
-            m_PostGameRoutine = PostGameRoutine();
-            StartCoroutine(m_PostGameRoutine);
-            if (currentPlayerDictionary.Count <= 0)
-            {
-                if (IsOwner)
-                {
-                    networkedGameState.Value = GameState.PreGame;
-                }
-            }
+            // NO mostrar "Post Game" todavía.
+            // NO mostrar "Wait" todavía.
+            // La coroutine controla toda la secuencia.
+
+            m_PostGameRoutine = StartCoroutine(
+                PostGameWithWinnerCelebration()
+            );
         }
 
-        IEnumerator PostGameRoutine()
+        IEnumerator PostGameWithWinnerCelebration()
         {
-            yield return new WaitForSeconds(m_PostGameWaitTimeInSeconds);
-            m_GameStateText.text = "Next Game in";
-            for (int i = m_PostGameCountdownTimeInSeconds; i > 0; i--)
+            Debug.Log("🟢 POST GAME: iniciando secuencia completa");
+
+            // ==========================================
+            // 1. CELEBRACIÓN
+            // ==========================================
+
+            yield return new WaitForSeconds(0.5f);
+
+            Debug.Log("🏆 POST GAME: iniciando celebración");
+
+            yield return StartCoroutine(PlayFinalWinnerAudio());
+
+            Debug.Log("🏁 POST GAME: celebración terminada");
+
+            // ==========================================
+            // 2. TELEPORT DESPUÉS DE CELEBRACIÓN
+            // ==========================================
+
+            if (LocalPlayerInGame)
             {
-                m_DynamicButton.UpdateButton(ResetGame, $"{i}", true, false);
-                yield return new WaitForSeconds(1);
+                Debug.Log("🚶 TELEPORT: saliendo del área del juego");
+
+                TeleportToArea(m_LeaveTeleportTransform);
             }
+
+            // ==========================================
+            // 3. ESPERA ANTES DE NEXT GAME
+            // ==========================================
+
+            Debug.Log(
+                $"⏳ POST GAME: esperando {m_PostGameWaitTimeInSeconds} segundos"
+            );
+
+            yield return new WaitForSeconds(
+                m_PostGameWaitTimeInSeconds
+            );
+
+            // ==========================================
+            // 4. AHORA SÍ MOSTRAR NEXT GAME
+            // ==========================================
+
+            Debug.Log("🟡 POST GAME: mostrando NEXT GAME");
+
+            m_GameStateText.text = "Next Game in";
+
+            for (
+                int i = m_PostGameCountdownTimeInSeconds;
+                i > 0;
+                i--
+            )
+            {
+                Debug.Log($"⏱️ NEXT GAME: {i}");
+
+                m_DynamicButton.UpdateButton(
+                    ResetGame,
+                    $"{i}",
+                    true,
+                    false
+                );
+
+                yield return new WaitForSeconds(1f);
+            }
+
+            // ==========================================
+            // 5. SIGUIENTE JUEGO
+            // ==========================================
 
             if (IsOwner)
             {
+                Debug.Log("🔵 POST GAME: pasando a PRE GAME");
+
                 networkedGameState.Value = GameState.PreGame;
             }
+
+            m_PostGameRoutine = null;
         }
 
         void TriggerReadyState(Collider other, bool entered)
@@ -482,6 +710,16 @@ namespace XRMultiplayer.MiniGames
                 StartGameOwnerRpc();
             }
         }
+        public void AdmitPlayerDirectly(ulong clientId)
+        {
+            if (!IsOwner) return;
+
+            AddPlayerRpc(clientId);
+            if (m_QueuedUpPlayers.Count < maxAllowedPlayers)
+            {
+                m_QueuedUpPlayers.Add(clientId);
+            }
+        }
 
         [Rpc(SendTo.Owner)]
         void StartGameOwnerRpc()
@@ -497,27 +735,48 @@ namespace XRMultiplayer.MiniGames
         [Rpc(SendTo.Owner)]
         public void StopGameOwnerRpc()
         {
-            networkedGameState.Value = GameState.PostGame;
-            m_CurrentPlayers.Clear();
+            // Primero determinamos y guardamos al ganador.
+            // Esto debe ocurrir ANTES de cambiar a PostGame.
             if (currentPlayerDictionary.Count > 0)
             {
-                float score = currentPlayerDictionary.First().Value.currentScore;
-                if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
+                SortPlayers();
+
+                // El primer jugador es el ganador.
+                // Funciona incluso si tiene 0 puntos.
+                m_LastRoundWinnerId.Value =
+                    currentPlayerDictionary.Keys.First().OwnerClientId;
+
+                Debug.Log($"🏆 Winner ID: {m_LastRoundWinnerId.Value}");
+            }
+            else
+            {
+                m_LastRoundWinnerId.Value = ulong.MaxValue;
+            }
+
+            // Ahora sí cambiamos a PostGame.
+            networkedGameState.Value = GameState.PostGame;
+
+            // Guardamos el ganador para el siguiente nivel.
+            if (m_NextLevelManager != null &&
+                m_LastRoundWinnerId.Value != ulong.MaxValue)
+            {
+                try
                 {
-                    if (score < m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
-                    {
-                        m_BestAllScore.Value = score;
-                    }
+                    m_NextLevelManager.AdmitPlayerDirectly(
+                        m_LastRoundWinnerId.Value
+                    );
                 }
-                else
+                catch (System.Exception e)
                 {
-                    if (score > m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
-                    {
-                        m_BestAllScore.Value = score;
-                    }
+                    Debug.LogError($"[Level Progression] Falló: {e.Message}");
                 }
             }
+
+            // Limpiamos los jugadores de esta partida.
+            currentPlayerDictionary.Clear();
+            m_CurrentPlayers.Clear();
         }
+        
 
         /// <summary>
         /// Submits a player score. If <see cref="finishGameOnScoreSubmit"/> is true, it will finish the game for that player.
@@ -953,6 +1212,11 @@ namespace XRMultiplayer.MiniGames
                 m_ScoreboardSlots.Add(slot);
                 slot.SetSlotOpen();
             }
+        }
+        [Rpc(SendTo.Everyone)]
+        public void AnnounceSuddenDeathFailRpc()
+        {
+            PlayerHudNotification.Instance.ShowText("💥 ¡Fallaste! Muerte súbita.");
         }
     }
 }
